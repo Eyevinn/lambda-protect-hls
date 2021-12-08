@@ -32,8 +32,8 @@ jobs:
       - name: Default deploy
         uses: appleboy/lambda-action@master
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key_id: ${{ secrets.LAMBDA_AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.LAMBDA_AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-north-1
           function_name: lambda-protect-hls-dev
           zip_file: bundle.zip
