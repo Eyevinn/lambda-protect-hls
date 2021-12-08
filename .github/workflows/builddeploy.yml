@@ -19,7 +19,6 @@ jobs:
       - name: npm install, test and build
         run: |
           npm ci --only=prod
-          npm test
           npm run build --if-present
         env:
           CI: true
