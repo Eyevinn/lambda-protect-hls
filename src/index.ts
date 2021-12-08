@@ -69,7 +69,7 @@ export const handler: ALBHandler = async (event: ALBEvent): Promise<ALBResult> =
   console.log(event);
   let response;
   try {
-    if (event.path.match(/\.m3u8$/) && event.queryStringParameters && event.httpMethod === "GET") {
+    if (event.path.match(/\.m3u8$/) && Object.keys(event.queryStringParameters).length > 0 && event.httpMethod === "GET") {
       response = await handleMediaPlaylistRequest(event);
     } else if (event.path.match(/\.m3u8$/) && event.httpMethod === "GET") {
       response = await handleBasicAuthMultiVariantRequest(event);

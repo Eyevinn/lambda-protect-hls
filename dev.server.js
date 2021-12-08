@@ -5,9 +5,8 @@ const { handler } = require("./dist/index.js");
 
 const server = fastify();
 server.get("*", async (request, reply) => {
-  let params;
-  if (request.query && Object.keys(request.query).length > 0) {
-    params = {};
+  let params = {};
+  if (request.query) {
     Object.keys(request.query).map(k => {
       params[k] = request.query[k];
     });
