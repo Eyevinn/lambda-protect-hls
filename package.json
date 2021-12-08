@@ -11,9 +11,7 @@
   "author": "Eyevinn Technology AB <work@eyevinn.se>",
   "license": "MIT",
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.86",
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.11",
     "aws-sdk-mock": "^5.5.0",
     "fastify": "^3.24.1",
     "jest": "^27.4.3",
@@ -23,6 +21,8 @@
   "dependencies": {
     "@eyevinn/hls-query": "^0.3.2",
     "aws-sdk": "^2.1042.0",
+    "@types/aws-lambda": "^8.10.86",
+    "@types/node": "^16.11.11",
     "dotenv": "^10.0.0"
   }
 }
