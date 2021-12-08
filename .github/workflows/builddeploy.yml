@@ -24,10 +24,10 @@ jobs:
           CI: true
       - name: Move node_modules to build folder
         run: mv node_modules dist/node_modules
-      - name: zip
+      - name: install zip
         uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ../bundle.zip ./
+      - name: zip
+        run: zip -qq -r ../bundle.zip ./
         working-directory: ./dist
       - name: Default deploy
         uses: appleboy/lambda-action@master
