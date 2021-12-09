@@ -33,6 +33,8 @@ PUBLIC_KEY = "<id of the public key from the trusted key group that you have con
 
 By default (and as a proof of concept) this Lambda uses Basic authentication to unlock access. It ask the browser for authentication when requesting the manifest. This is something you would normally modify to use a bearer / session token that is provided to the video player after veriyfing that the user is entitled to access this specific stream. You can set the username and password from the environment variables `POC_USERNAME` and `POC_PASSWORD`.
 
+A live example of this Lambda in actions is found here: `https://hls-signed.lambda.eyevinn.technology/DEC6_TEST_002/master.m3u8` (`eyevinnpoc:eyevinnpoc`).
+
 # About Eyevinn Technology
 
 Eyevinn Technology is an independent consultant firm specialized in video and streaming. Independent in a way that we are not commercially tied to any platform or technology vendor.
