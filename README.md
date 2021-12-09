@@ -8,6 +8,8 @@ Lambda function to handle access to HLS from a Cloudfront CDN distribution where
 
 Content distributed through a Cloudfront CDN that restricts viewer access requires a signature attached to each request as either a query parameter or a cookie provided on every client request. The way an HLS supported video player works is that it first fetches a manifest containing a list of media playlists. A media playlist contains the list of video segments that the video player downloads when playback is started. This Lambda function handles these requests and ensures that the URLs to media playlists and video segments includes a valid signature as query parameters. To sign the URLs the Lambda function needs the private key from the keypair that you have configured the Cloudfront CDN with.
 
+A [blog post](https://dev.to/video/protect-hls-streams-on-aws-using-cloudfront-and-lambda-function-336g) detailing how this works is found [here](https://dev.to/video/protect-hls-streams-on-aws-using-cloudfront-and-lambda-function-336g).
+
 ## Setup
 
 1. Create an AWS Lambda function (Node.js 14.x runtime)
