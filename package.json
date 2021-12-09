@@ -10,6 +10,10 @@
   },
   "author": "Eyevinn Technology AB <work@eyevinn.se>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eyevinn/lambda-protect-hls.git"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "aws-sdk-mock": "^5.5.0",
