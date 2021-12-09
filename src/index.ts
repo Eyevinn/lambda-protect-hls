@@ -83,7 +83,7 @@ export const handler: ALBHandler = async (event: ALBEvent): Promise<ALBResult> =
       response = generateErrorResponse({ code: 404, message: "Resource not found" });
     }
   } catch (error) {
-    console.error("ERROR: " + error);
+    console.error(error);
     response = generateErrorResponse({ code: 500, message: error.message ? error.message : error });
   }
   return response;
@@ -110,16 +110,20 @@ const handleMultiVariantRequest = async (event: ALBEvent): Promise<ALBResult> =>
   const signedOriginUrl = getSignedManifestUrlFor(event.path);
   const [ match, signedOriginPath ] = signedOriginUrl.href.match(/^(.*)\/(.*?)$/);
   const hls = new HLSMultiVariant({ url: signedOriginUrl }, (uri) => signUrlSearchParams(signedOriginPath, uri, 3600));
-  await hls.fetch();
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/x-mpegURL",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Origin",
-    },
-    body: hls.toString()
-  };
+  try {
+    await hls.fetch();
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/x-mpegURL",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Origin",
+      },
+      body: hls.toString()
+    };
+  } catch (error) {
+    throw new Error(error + ": " + signedOriginUrl.href);
+  }
 };
 
 const handleMediaPlaylistRequest = async (event: ALBEvent): Promise<ALBResult> => {
@@ -127,16 +131,20 @@ const handleMediaPlaylistRequest = async (event: ALBEvent): Promise<ALBResult> =
   const [ match, signedOriginPath ] = event.path.match(/^(.*)\/(.*?)$/);
   const signedOriginUrl = new URL(ORIGIN + event.path + "?" + searchParams.toString());
   const hls = new HLSMediaPlaylist({ url: signedOriginUrl }, (uri) => signUrlSearchParams(ORIGIN + signedOriginPath, uri, 3600), new URL(ORIGIN + signedOriginPath + "/"));
-  await hls.fetch();
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/x-mpegURL",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Origin",
-    },
-    body: hls.toString()
-  };
+  try {
+    await hls.fetch();
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/x-mpegURL",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Origin",
+      },
+      body: hls.toString()
+    };
+  } catch (error) {
+    throw new Error(error + ": " + signedOriginUrl.href);
+  }
 };
 
 const handleOptionsRequest = async (event: ALBEvent): Promise<ALBResult> => {
