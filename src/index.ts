@@ -3,11 +3,15 @@ import { ALBHandler, ALBEvent, ALBResult } from "aws-lambda";
 import { HLSMultiVariant, HLSMediaPlaylist } from "@eyevinn/hls-query";
 
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
+let PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ORIGIN = process.env.ORIGIN || "https://lab-signed.cdn.eyevinn.technology";
 const POC_USERNAME = process.env.POC_USERNAME || "eyevinnpoc";
 const POC_PASSWORD = process.env.POC_PASSWORD || "eyevinnpoc";
 
+if (process.env.PRIVATE_KEY_B64) {
+  const buf = Buffer.from(process.env.PRIVATE_KEY_B64, "base64");
+  PRIVATE_KEY = buf.toString("ascii");
+}
 const signer = new CloudFront.Signer(PUBLIC_KEY, PRIVATE_KEY);
 
 enum IAuthenticated {
