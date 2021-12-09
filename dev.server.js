@@ -7,14 +7,13 @@ const server = fastify();
 server.get("*", async (request, reply) => {
   console.log(request.url);
   let params = {};
-  const [ tmp, queryString ] = request.url.split("?");
+  const [ path, queryString ] = request.url.split("?");
   if(queryString) {
     for (let pair of queryString.split("&")) {
       const [k, v] = pair.split("=");
       params[k] = v;
     }
   }
-  const [ path, rest ] = request.url.split("?");
   const event = {
     requestContext: {
       elb: {}
