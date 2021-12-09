@@ -71,6 +71,12 @@ const signUrlSearchParams = (originPath, uri, expiresSec) => {
 
 export const handler: ALBHandler = async (event: ALBEvent): Promise<ALBResult> => {
   console.log(event);
+  // This is needed because Internet is a bit broken...
+  const searchParams = new URLSearchParams(Object.keys(event.queryStringParameters).map(k => `${k}=${event.queryStringParameters[k]}`).join("&"));
+  for (let k of searchParams.keys()) {
+    event.queryStringParameters[k] = searchParams.get(k);
+  }
+  console.log(event.queryStringParameters);
   let response;
   try {
     if (event.path.match(/\.m3u8$/) && Object.keys(event.queryStringParameters).length > 0 && event.httpMethod === "GET") {
