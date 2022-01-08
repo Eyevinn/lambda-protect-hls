@@ -1,6 +1,6 @@
 {
   "name": "lambda-protect-hls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lambda function for handling restricted access to HLS",
   "main": "dist/index.js",
   "scripts": {
